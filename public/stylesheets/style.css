@@ -1,61 +1,43 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-a {
-  color: #487a98;
-}
-footer {
-	display: flex;
-	justify-content: space-around;
-    background-color: rgb(255, 255, 255);
-
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: min-content;
-    flex-shrink:0;
-}
-body {
-  margin: 0; /* Supprime la marge par défaut du corps */
-}
-
-.menu {
-  display:block;
-  border: 1px solid black;
-  text-align: center;
-  padding: 0px; /* Decreased padding to make the rectangle smaller */
-}
-
-.menu ul {
-  list-style-type: none;
-  padding: 0;
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.menu li {
-  font-size: 20px;
+  font-family: Arial, sans-serif;
   margin: 0;
-}
-
-.menu li a {
-  text-decoration: none;
+  padding: 0;
 }
 
 header {
+  background-color: #eebee4;
+  color: #fff;
   display: flex;
-  flex-direction: column;
-  /*align-items: center; /* Aligne les éléments verticalement au centre */
+  justify-content:space-between;
+  align-items:center;
+  padding: 10px 20px;
+}
+
+.logo img {
+  /*display: flex;
+  margin-right: auto;*/
+  max-width: 200px; /* Adjust the max-width according to your logo size */
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
   text-align: center;
+  margin-right:40px ;
 }
 
-.logo {
-  width: 100px;
-  height: auto;
-  padding-top:1%;
-  margin-right: 20px;
+.menu li a {
+  color: #fff;
+  text-decoration: none;
 }
 
+footer {
+  background-color: #eebee4;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
