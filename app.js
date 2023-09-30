@@ -17,21 +17,27 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use('/', homeRouter);
+
+
 //middleware
 app.use(logger('dev')); //stocke les infos sur tous les https requests
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(express.static('public'));
 app.get('/',(req,res)=>{
   res.render('header');
 });
-
+app.get('/', (req, res) => {
+  res.render('home');
+});
 //routing
 //app.use('/', indexRouter);
 //app.use('/users', usersRouter);
-app.use('/', homeRouter);
+
 
 
 // catch 404 and forward to error handler
