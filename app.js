@@ -4,6 +4,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var multer = require('multer');
+var fileUpload = require('express-fileupload');
 
 //indludes route files to handle routes either in index or users
 //var indexRouter = require('./routes/index');
@@ -16,6 +18,7 @@ var app = express();
 // view engine setup : we use pug
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+app.set('views', './views');
 
 app.use('/', homeRouter);
 
@@ -26,6 +29,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Utilisation de express-fileupload pour gérer le téléchargement de fichiers
+app.use(fileUpload());
 
 app.use(express.static('public'));
 app.get('/',(req,res)=>{
@@ -62,3 +68,33 @@ app.listen(port, () => {
 });
 
 module.exports = app;
+// Configuration de Multer pour le stockage des fichiers
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ storage: storage });
+
+// Middleware pour servir les fichiers statiques (comme les images téléchargées)
+app.use(express.static('uploads'));
+/*
+// Page d'accueil
+app.get('/', (req, res) => {
+  res.render('upload');
+});  il ya deja avec home notre page d'acceuill*/
+
+// Gestion de l'envoi de fichiers
+app.post('/upload', upload.single('image'), (req, res) => {
+  if (req.file) {
+    // Le fichier a été téléchargé avec succès
+    res.send('Image téléchargée avec succès.');
+  } else {
+    // Aucun fichier n'a été sélectionné
+    res.send('Aucun fichier sélectionné.');
+  }
+});
