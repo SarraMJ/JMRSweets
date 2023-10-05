@@ -10,7 +10,7 @@ router.get('/', function (req, res) {
 /* POST home page, (upload pic) */
 router.post('/', function(req, res) {
   res.render('home');
-});
+}); 
 
 module.exports = router;
 
