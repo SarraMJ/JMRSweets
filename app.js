@@ -18,6 +18,7 @@ app.set('view engine', 'pug');
 //indludes route files to handle routes either in index or users
 var homeRouter = require('./routes/home');
 var aboutRouter = require('./routes/about');
+var contactRouter = require('./routes/contact');
 
 //middleware setup
 app.use(logger('dev')); //logs info about incoming http requests
@@ -41,6 +42,7 @@ const upload = multer({ storage: storage });
 //Routes setup for our pages
 app.use('/', homeRouter);
 app.use('/about', aboutRouter);
+app.use('/contact', contactRouter);
 
 // express fileupload middleware
 app.use(fileUpload());
