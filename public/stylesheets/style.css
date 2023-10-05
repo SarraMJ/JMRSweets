@@ -5,8 +5,8 @@ body {
 }
 
 header {
-  background-color: #eebee4;
-  color: #fff;
+  background-color: #e76c8b;
+  color: #d06cba;
   display: flex;
   justify-content:space-between;
   align-items:center;
@@ -16,7 +16,11 @@ header {
 .logo img {
   /*display: flex;
   margin-right: auto;*/
-  max-width: 200px; /* Adjust the max-width according to your logo size */
+  width: 150px; /* Adjust the max-width according to your logo size */
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  
 }
 
 .menu {
@@ -28,12 +32,13 @@ header {
 }
 
 .menu li a {
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
+  margin: 0 60px;
 }
 
 footer {
-  background-color: #eebee4;
+  background-color: #e76c8b;
   color: #fff;
   text-align: center;
   padding: 10px 0;
