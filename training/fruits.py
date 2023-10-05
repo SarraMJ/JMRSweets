@@ -5,7 +5,7 @@ import torch
 
 
 # Chargez l'image
-image_path = 'chocolate.jpeg'
+image_path = 'plum.jpeg'
 image = Image.open(image_path)
 
 # Transformations pour le prétraitement des images
