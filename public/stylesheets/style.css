@@ -46,3 +46,10 @@ footer {
   bottom: 0;
   width: 100%;
 }
+
+.text {
+  margin-left: 500px;
+  margin-right: 500px;
+  margin-top: 30px;
+  
+}
