@@ -58,9 +58,24 @@ footer {
   flex-shrink: 0;
 }
 
+.two-column-layout{
+  display: flex;
+
+  align-items: flex-start;
+}
 .text {
-  margin-left: 500px;
-  margin-right: 500px;
+  flex: 1;
+  margin-left: 10%;
+  margin-right: 10%;
   margin-top: 30px;
   
+}
+.cookie{
+  
+  width: 50%; /* Adjust the max-width according to your logo size */
+  height: 30%;
+  flex-shrink: 0;
+  margin-right: 20px;
+  /*border-radius: 50%;*/
+  /*object-fit: cover;*/
 }
