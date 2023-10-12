@@ -60,22 +60,50 @@ footer {
 
 .two-column-layout{
   display: flex;
-
+  /*align-items: flex-start;*/
   align-items: flex-start;
 }
 .text {
-  flex: 1;
-  margin-left: 10%;
-  margin-right: 10%;
+  /*flex: 0 0 60%;
+  
+ 
+  margin: 0 auto;*/
+  grid-column: 2;
+  text-align: left;
+  margin-left: 0px;
   margin-top: 30px;
+  margin-right: 0%;
   
 }
-.cookie{
+.pie{
   
-  width: 50%; /* Adjust the max-width according to your logo size */
-  height: 30%;
-  flex-shrink: 0;
-  margin-right: 20px;
+  width: 160px; /* Adjust the max-width according to your logo size */
+  height: 160px;
+  rotate: 30deg;
+  margin-left: 5%;
   /*border-radius: 50%;*/
   /*object-fit: cover;*/
+}
+
+.tarte{
+  width: 100px;  
+  height: 100px;
+  margin-right: 10px;
+  margin-top: 60px;
+  rotate: 330deg;
+}
+
+.cookies{
+  width: 150px; /* Adjust the max-width according to your logo size */
+  height: 200px;
+  rotate: 20deg;
+  margin-left: 10%;
+}
+
+.muffin{
+  width: 130px; 
+  height: 130px;
+  margin-left: 0px;
+  margin-top: 30px;
+  rotate: 350deg;
 }
