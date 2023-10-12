@@ -14,42 +14,24 @@ router.post('/', function(req, res) {
 
 module.exports = router;
 
-/* chatgpt example
-// routes/home.js
 
-const express = require('express');
-const router = express.Router();
 
-// This route handles the POST request for uploading an image and generating recipes
-router.post('/upload', (req, res) => {
-  // Here, you would handle the image upload and recipe generation logic
-  // For simplicity, let's assume you receive a list of ingredients as JSON in the request body
 
-  const uploadedIngredients = req.body.ingredients;
+const { exec } = require('child_process');
+const path = require('path'); // Importez le module 'path'
 
-  // Perform recipe generation logic here
-  const generatedRecipes = generateRecipes(uploadedIngredients);
+router.get('/run-hello', (req, res) => {
+  // Construisez le chemin absolu vers hello.py en utilisant path.join()
+  const scriptPath = path.join(__dirname, '../training/hello.py');
 
-  // Send back the generated recipes as a JSON response
-  res.json({ recipes: generatedRecipes });
+  exec(`python ${scriptPath}`, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Erreur : ${error}`);
+      return res.status(500).send('Erreur lors de l\'exécution du script Python.');
+    }
+
+    // Envoyez la sortie du script Python comme réponse JSON
+    res.json({ result: stdout });
+  });
 });
 
-// Example function for generating recipes (replace with your actual logic)
-function generateRecipes(ingredients) {
-  // Simulate generating recipes based on the ingredients
-  // Replace this with your actual recipe generation logic
-  const recipes = [];
-
-  // Example: Generating a random recipe for each ingredient
-  ingredients.forEach((ingredient) => {
-    recipes.push({
-      ingredient,
-      recipe: `Recipe for ${ingredient}`,
-    });
-  });
-
-  return recipes;
-}
-
-module.exports = router;
-*/ 

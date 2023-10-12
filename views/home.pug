@@ -6,3 +6,11 @@ block content
   form(action="/upload", method="POST", enctype="multipart/form-data")
     input(type="file", name="image", accept="image/*")
     button(type="submit") Envoyer
+
+  button(id="executeHelloButton") Execute Hello.py
+  // Ajoutez un élément HTML pour afficher la sortie du script Python
+  p(id="helloResult")
+
+  script(src="https://code.jquery.com/jquery-3.3.1.js") // Utilisez le lien CDN pour jQuery
+  script(src="/javascripts/home.js")
+
