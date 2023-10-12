@@ -22,7 +22,7 @@ const path = require('path'); // Importez le module 'path'
 
 router.get('/run-hello', (req, res) => {
   // Construisez le chemin absolu vers hello.py en utilisant path.join()
-  const scriptPath = path.join(__dirname, '../training/hello.py');
+  const scriptPath = path.join(__dirname, '../training/fruits.py');
 
   exec(`python ${scriptPath}`, (error, stdout, stderr) => {
     if (error) {

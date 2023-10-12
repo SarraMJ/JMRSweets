@@ -2,10 +2,16 @@ from PIL import Image
 from model import FruitsClassifier
 import torchvision.transforms as transforms
 import torch
+import os
 
+script_dir = os.path.dirname(os.path.abspath(__file__))
+# Specify the image file name
+image_file = 'plum.jpeg'
 
-# Chargez l'image
-image_path = 'plum.jpeg'
+# Construct the full path to the image file
+image_path = os.path.join(script_dir, image_file)
+
+# Load the image using the constructed path
 image = Image.open(image_path)
 
 # Transformations pour le prétraitement des images
@@ -20,7 +26,12 @@ transform = transforms.Compose([
 input_image = transform(image).unsqueeze(0)  # Vous devez également ajouter une dimension de lot (batch) car le modèle s'attend à un lot.
 
 # Chargez le modèle pré-entraîné
-model_checkpoint = 'fruits_classifier.pth'
+# Specify the image file name
+image_fil = 'fruits_classifier.pth'
+
+# Construct the full path to the image file
+image_pat = os.path.join(script_dir, image_fil)
+model_checkpoint = image_pat #'training/fruits_classifier.pth'
 model = FruitsClassifier(num_classes=3)  # Assurez-vous d'utiliser les mêmes paramètres que lors de l'entraînement
 model.load_state_dict(torch.load(model_checkpoint))
 model.eval()
