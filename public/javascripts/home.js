@@ -1,5 +1,10 @@
 $(function () {
 
+  //When we click "choose files" the message in "uploadMessage" div disappears (in case user wants to reupload a file)
+  $('input[name="images"]').on('change', function () {
+    $('#uploadMessage').text('');
+  });
+
   // Handle form submission
   $('#uploadForm').on('submit', function (event) {
     event.preventDefault(); // Prevents form from submitting in the traditional way
