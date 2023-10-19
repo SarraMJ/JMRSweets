@@ -6,6 +6,8 @@ block content
   form(action="/upload", method="POST", enctype="multipart/form-data", id="uploadForm")
     input(type="file", name="images", accept="image/*" multiple)
     button(type="submit") Submit
+    div(id="uploadMessage")
+
 
   button(id="executeHelloButton") Execute Hello.py
   // Ajoutez un élément HTML pour afficher la sortie du script Python
