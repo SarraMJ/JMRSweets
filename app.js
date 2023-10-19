@@ -27,18 +27,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Multer configuration for file uploads
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads'); //files will be stored in the uploads folder
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-  },
-});
-
-const upload = multer({ storage: storage });
-
 //Routes setup for our pages
 app.use('/', homeRouter);
 app.use('/about', aboutRouter);
@@ -47,12 +35,9 @@ app.use('/contact', contactRouter);
 // express fileupload middleware
 app.use(fileUpload());
 
-
 //serve static files from uploads directory
 app.use(express.static('uploads'));
 app.use(express.static('public'));
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

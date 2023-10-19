@@ -3,9 +3,9 @@ extends layout
 block content
   h1 Welcome to JRMSweets
 
-  form(action="/upload", method="POST", enctype="multipart/form-data")
-    input(type="file", name="image", accept="image/*")
-    button(type="submit") Envoyer
+  form(action="/upload", method="POST", enctype="multipart/form-data", id="uploadForm")
+    input(type="file", name="images", accept="image/*" multiple)
+    button(type="submit") Submit
 
   button(id="executeHelloButton") Execute Hello.py
   // Ajoutez un élément HTML pour afficher la sortie du script Python
