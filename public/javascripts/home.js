@@ -1,18 +1,21 @@
 $(function () {
-  // Modified function to handle form submission
-  $('#uploadForm').on('submit', function (event) {
-    event.preventDefault(); // Prevent the form from submitting in the traditional way
 
-    var formData = new FormData($(this)[0]); // Create FormData object to send files
+  // Handle form submission
+  $('#uploadForm').on('submit', function (event) {
+    event.preventDefault(); // Prevents form from submitting in the traditional way
+
+    var formData = new FormData($(this)[0]);  // Create FormData object to send files 
+    // constructs a set of key/value pairs representing form fields and their values, here = collects the data from the selected files
     $.ajax({
-      url: '/upload',
+      url: '/upload', //where request will be sent
       type: 'POST',
-      data: formData,
-      contentType: false,
-      processData: false,
+      data: formData, //what= our uploaded files 
+      contentType: false, // Don't set content type (it will be automatically set) because jquery does it
+      processData: false,  // Don't process the data (it will be automatically processed) because jquery does it
       success: function (data) {
-        // Affichez le message dans l'élément avec l'ID "uploadMessage"
+        // Shows the success message + resets form to upload new images if needed
         $('#uploadMessage').text(data.message);
+        $('#uploadForm')[0].reset();
       },
       error: function (error) {
         console.error('Error uploading files:', error);
@@ -20,7 +23,7 @@ $(function () {
     });
   });
 
-  // Bouton "Execute Hello.py"
+  //  Python part
   $('#executeHelloButton').on('click', function () {
     $.get('/run-hello', function (data) {
       $('#helloResult').text(data.result);

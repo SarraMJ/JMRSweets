@@ -25,6 +25,7 @@ const upload_directory = 'uploads';
 if (!fs.existsSync(upload_directory)) {
   fs.mkdirSync(upload_directory);
 }
+
 // Multer configuration for file uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -39,8 +40,7 @@ const upload = multer({ storage: storage });
 
 // Handle file upload
 router.post('/upload', upload.array('images', 10), function(req, res) {
-  // `req.files` contains information about the uploaded files
-  // You can access the files using req.files
+  // `req.files` : has info about the uploaded files
   // to get first uploaded file name : const firstFileName = req.files[0].filename;
   res.json({ message: 'Files uploaded successfully!' });
 });
