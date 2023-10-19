@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
-const multer = require('multer');
-const { exec } = require('child_process');
-const path = require('path');
+const multer = require('multer'); //used for file uploads 
+const { exec } = require('child_process'); //used for our python script
+const path = require('path'); //used to get absolute paths
+const fs = require('fs'); //allows file system operations to be perfomed (used to check if folder exists)
 
 //handle get 
 router.get('/', function (req, res) {
@@ -18,10 +19,16 @@ router.post('/', function(req, res) {
 
 //Handles image upload 
 
+const upload_directory = 'uploads';
+
+// if uploads folder doesn't exist, creates it
+if (!fs.existsSync(upload_directory)) {
+  fs.mkdirSync(upload_directory);
+}
 // Multer configuration for file uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads'); // Store uploaded files in the public/uploads directory
+    cb(null, upload_directory); // Store uploaded files in the public/uploads directory
   },
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
@@ -34,8 +41,7 @@ const upload = multer({ storage: storage });
 router.post('/upload', upload.array('images', 10), function(req, res) {
   // `req.files` contains information about the uploaded files
   // You can access the files using req.files
-  // For example, if you want to get the first uploaded file name:
-  //const firstFileName = req.files[0].filename;
+  // to get first uploaded file name : const firstFileName = req.files[0].filename;
   res.json({ message: 'Files uploaded successfully!' });
 });
 
