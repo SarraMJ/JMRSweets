@@ -6,29 +6,28 @@ import os
 import glob
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
-#upload_dir = os.path.join(script_dir, 'uploads')
-upload_dir = '/Users/roudykaram/Desktop/jsmrecipes/uploads'
 
-#print(f"Chemin absolu du répertoire 'uploads' : {upload_dir}")
+#takes the absolute path of "uploads" directory 
+upload_dir = os.path.join(script_dir, '../uploads')
 
-# Initialisation de la variable image_file
+# Initializes the variable image_file
 image_file = None
 
-# Recherchez la dernière image dans le répertoire 'uploads'
+# Looks or the last image in "uploads" directory 
 image_files = glob.glob(os.path.join(upload_dir, '*.jpeg'))
 if image_files:
-    # Triez les fichiers par date de modification (le plus récent en premier)
+    # Sorts the files by modification date (the most recent first)
     image_files.sort(key=os.path.getmtime, reverse=True)
 
-    # Prenez la première image (la plus récente)
+    # Takes the first image (the most recent)
     image_file = image_files[0]
 
 
 if image_file:
-    # Load the image using the constructed path
+    # Loads the image using the constructed path
     image = Image.open(image_file)
 
-    # Transformations pour le prétraitement des images
+    # Transformations for image preprocessing
     transform = transforms.Compose([
         transforms.Resize(224),
         transforms.CenterCrop(224),
@@ -36,10 +35,10 @@ if image_file:
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ])
 
-    # Appliquez les transformations à l'image
-    input_image = transform(image).unsqueeze(0)  # Vous devez également ajouter une dimension de lot (batch) car le modèle s'attend à un lot.
+    # Applies transformations to images
+    input_image = transform(image).unsqueeze(0)  
 
-    # Chargez le modèle pré-entraîné
+    
     # Specify the image file name
     image_fil = 'fruits_classifier.pth'
 
@@ -51,12 +50,12 @@ if image_file:
     model.eval()
 
 
-    # Faites la prédiction
+    # Makes the prediction
     with torch.no_grad():
         outputs = model(input_image)
         _, predicted = torch.max(outputs, 1)
 
-    # Interprétez les prédictions pour les 3 classes
+    # Interprets the predictions for the classes 
 
     if predicted.item() == 0:
             print("L'image représente une pomme.")
