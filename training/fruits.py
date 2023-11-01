@@ -7,7 +7,7 @@ import glob
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
-#takes the absolute path of "uploads" directory 
+# Takes the absolute path of "uploads" directory 
 upload_dir = os.path.join(script_dir, '../uploads')
 
 # Initializes the variable image_file

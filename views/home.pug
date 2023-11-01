@@ -3,13 +3,15 @@ extends layout
 block content
   h1 Welcome to JRMSweets
 
-  form(action="/upload", method="POST", enctype="multipart/form-data", id="uploadForm")
-    input(type="file", name="images", accept="image/*" multiple)
-    button(type="submit") Submit
-    div(id="uploadMessage")
-
-
-  button(id="executeFruitsButton") Execute fruits.py and clear uploads
+  div(id=formshape)
+    form(action="/upload", method="POST", enctype="multipart/form-data", id="uploadForm")
+      input(type="file", name="images", accept="image/*" multiple)
+      br 
+      br
+      button(type="submit") Submit
+      div(id="uploadMessage")
+    br
+    button(id="executeFruitsButton") Execute fruits.py and clear uploads
 
   // Ajoutez un élément HTML pour afficher la sortie du script Python
   p(id="helloResult")
