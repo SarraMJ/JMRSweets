@@ -29,9 +29,12 @@ $(function () {
   });
 
   //  Python part
-  $('#executeHelloButton').on('click', function () {
-    $.get('/run-hello', function (data) {
+  $('#executeFruitsButton').on('click', function () {
+    $.get('/run-and-clear-uploads', function (data) {
       $('#helloResult').text(data.result);
+      $('#uploadMessage').text(data.message);
     });
   });
 });
+
+
