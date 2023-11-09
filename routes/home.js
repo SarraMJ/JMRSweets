@@ -78,52 +78,8 @@ router.get('/run-and-clear-uploads', (req, res) => {
 
     // Supprimez le contenu du répertoire 'uploads'
     fs.readdir(upload_directory, (err, files) => {
-      if (err) {
-        console.error(`Erreur lors de la lecture du répertoire 'uploads' : ${err}`);
-        return res.status(500).send('Erreur lors de la suppression des fichiers.');
-      }
-
-      files.forEach(file => {
-        const filePath = path.join(upload_directory, file);
-        fs.unlinkSync(filePath); // Supprime chaque fichier
-      });
-
       // Envoie la sortie du script Python comme réponse
       res.json({ result: result, message: 'Fichiers supprimés avec succès!' });
     });
   });
-});
-
-
-//handles python execution and clearing uploads
-router.get('/run-and-clear-uploads', (req, res) => {
-  const scriptPath = path.join(__dirname, '../training/fruits.py');
-
-  exec(`python ${scriptPath}`, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Erreur : ${error}`);
-      return res.status(500).send('Erreur lors de l\'exécution du script Python.');
-    }
-
-    // Enregistrez la sortie du script Python
-    const result = stdout;
-
-    // Supprimez le contenu du répertoire 'uploads'
-    fs.readdir(upload_directory, (err, files) => {
-      if (err) {
-        console.error(`Erreur lors de la lecture du répertoire 'uploads' : ${err}`);
-        return res.status(500).send('Erreur lors de la suppression des fichiers.');
-      }
-
-      files.forEach(file => {
-        const filePath = path.join(upload_directory, file);
-        fs.unlinkSync(filePath); // Supprime chaque fichier
-      });
-
-      // Envoie la sortie du script Python comme réponse
-      res.json({ result: result, message: 'Fichiers supprimés avec succès!' });
-    });
-  });
-});
-
-
+}); 

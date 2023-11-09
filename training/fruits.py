@@ -63,5 +63,11 @@ if image_file:
             print("L'image représente du chocolat.")
     else:
             print("L'image représente une prune.")
+
+
+    #Delete the used image
+
+    os.remove(image_file)
+    print(f"L'image {image_file} a été supprimée.")
 else:
     print("Aucune image trouvée dans le répertoire 'uploads'.")
