@@ -6,7 +6,6 @@ body {
   overflow-y: auto;
   min-height: 100vh;
   padding-bottom: 100px;
-  /*max-height: 400px; */
   overflow-y: auto; 
 }
 
@@ -20,9 +19,7 @@ header {
 }
 
 .logo img {
-  /*display: flex;
-  margin-right: auto;*/
-  width: 150px; /* Adjust the max-width according to your logo size */
+  width: 150px; 
   height: 150px;
   border-radius: 50%;
   object-fit: cover;
@@ -34,7 +31,6 @@ header {
   display: flex;
   gap: 20px;
   text-align: center;
-  margin-right:40px ;
 }
 
 .menu li a {
@@ -60,14 +56,10 @@ footer {
 
 .two-column-layout{
   display: flex;
-  /*align-items: flex-start;*/
   align-items: flex-start;
+  
 }
 .text {
-  /*flex: 0 0 60%;
-  
- 
-  margin: 0 auto;*/
   grid-column: 2;
   text-align: left;
   margin-left: 0px;
@@ -77,12 +69,10 @@ footer {
 }
 .pie{
   
-  width: 160px; /* Adjust the max-width according to your logo size */
+  width: 160px; 
   height: 160px;
   rotate: 30deg;
   margin-left: 5%;
-  /*border-radius: 50%;*/
-  /*object-fit: cover;*/
 }
 
 .tarte{
@@ -94,7 +84,7 @@ footer {
 }
 
 .cookies{
-  width: 150px; /* Adjust the max-width according to your logo size */
+  width: 150px;
   height: 200px;
   rotate: 20deg;
   margin-left: 10%;
@@ -107,3 +97,5 @@ footer {
   margin-top: 30px;
   rotate: 350deg;
 }
+
+

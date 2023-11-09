@@ -14,7 +14,7 @@ upload_dir = os.path.join(script_dir, '../uploads')
 image_file = None
 
 # Looks or the last image in "uploads" directory 
-image_files = glob.glob(os.path.join(upload_dir, '*.jpeg'))
+image_files = glob.glob(os.path.join(upload_dir, '*.jpeg')) or glob.glob(os.path.join(upload_dir, '*.jpg')) or glob.glob(os.path.join(upload_dir, '*.png'))
 if image_files:
     # Sorts the files by modification date (the most recent first)
     image_files.sort(key=os.path.getmtime, reverse=True)
