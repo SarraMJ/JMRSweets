@@ -24,7 +24,9 @@ def predict_image(image_file) :
     if image_file:
      # Loads the image using the constructed path
         image = Image.open(image_file)
-
+        # Convertit l'image en mode RGB si elle n'est pas déjà en couleur
+        if image.mode != 'RGB':
+            image = image.convert('RGB')
         # Transformations for image preprocessing
         transform = transforms.Compose([
             transforms.Resize(224),
