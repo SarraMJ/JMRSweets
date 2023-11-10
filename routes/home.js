@@ -26,7 +26,7 @@ if (!fs.existsSync(upload_directory)) {
   fs.mkdirSync(upload_directory);
 }
 
-// Multer configuration for file uploads
+// Multer configuration for file uploads (configuration destination (uploads) and filenaming)
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, upload_directory); // Store uploaded files in the public/uploads directory
@@ -36,9 +36,10 @@ const storage = multer.diskStorage({
   },
 });
 
+//initializes multer with the configurations (we defined up)
 const upload = multer({ storage: storage });
 
-// Handle file upload
+// handles post request to upload images
 router.post('/upload', upload.array('images', 10), function(req, res) {
   // `req.files` : has info about the uploaded files
   // to get first uploaded file name : const firstFileName = req.files[0].filename;
@@ -46,23 +47,6 @@ router.post('/upload', upload.array('images', 10), function(req, res) {
 });
 
 //Handles python execution 
-router.get('/run-hello', (req, res) => {
-  // constructs the absolut path to fruits.py 
-  const scriptPath = path.join(__dirname, '../training/fruits.py');
-
-  exec(`python ${scriptPath}`, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Erreur : ${error}`);
-      return res.status(500).send('Erreur lors de l\'exécution du script Python.');
-    }
-
-    // sends the output of the python script as json response (to make it appear on the page)
-    res.json({ result: stdout });
-  });
-});
-
-
-module.exports = router;
 
 router.get('/run-and-clear-uploads', (req, res) => {
   const scriptPath = path.join(__dirname, '../training/fruits.py');
@@ -73,13 +57,26 @@ router.get('/run-and-clear-uploads', (req, res) => {
       return res.status(500).send('Erreur lors de l\'exécution du script Python.');
     }
 
-    // Enregistrez la sortie du script Python
+    // Saves the output of python script
     const result = stdout;
 
-    // Supprimez le contenu du répertoire 'uploads'
+    // Deletes content of uploads folder
     fs.readdir(upload_directory, (err, files) => {
-      // Envoie la sortie du script Python comme réponse
-      res.json({ result: result, message: 'Fichiers supprimés avec succès!' });
+
+      if (err) {
+        console.error(`Error while accessing uploads folder : ${err}`);
+        return res.status(500).send('Erreur while deleting files from uploads.');
+      }
+
+      files.forEach(file => {
+        const filePath = path.join(upload_directory, file);
+        fs.unlinkSync(filePath); //Deletes every file from uploads
+      });
+
+
+      res.json({ result: result, message: 'Images deleted successfully!' });
     });
   });
 }); 
+
+module.exports = router;
