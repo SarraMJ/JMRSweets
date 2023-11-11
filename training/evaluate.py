@@ -3,10 +3,10 @@ import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from torchvision.datasets import ImageFolder  # Utilisez ImageFolder directement
-from model import FruitsClassifier  # Importez la classe TomatoClassifier depuis votre code existant
+from model import IngredientsClassifier  # Importez la classe TomatoClassifier depuis votre code existant
 
 # Définissez le chemin du modèle entraîné
-model_checkpoint = 'fruits_classifier.pth'
+model_checkpoint = 'ingredients_classifier.pth'
 
 # Transformations pour les données de test
 transform = transforms.Compose([
@@ -17,13 +17,13 @@ transform = transforms.Compose([
 ])
 
 # Chargez les données de test en utilisant ImageFolder
-test_dataset = ImageFolder(root='fruits_dataset/test', transform=transform)
+test_dataset = ImageFolder(root='ingredients_dataset/test', transform=transform)
 
 # Créez un DataLoader pour les données de test
 test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
 
 # Chargez le modèle pré-entraîné
-model = FruitsClassifier(num_classes=3)  # Assurez-vous d'utiliser les mêmes paramètres que lors de l'entraînement
+model = IngredientsClassifier(num_classes=22)  # Assurez-vous d'utiliser les mêmes paramètres que lors de l'entraînement
 model.load_state_dict(torch.load(model_checkpoint))
 model.eval()
 

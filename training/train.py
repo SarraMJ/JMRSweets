@@ -3,10 +3,10 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 from torchvision import transforms, datasets  # Updated import
-from model import FruitsClassifier  # Importez votre classe de modèle
+from model import IngredientsClassifier  # Importez votre classe de modèle
 
 # Paramètres d'entraînement
-num_classes = 3  # Nombre de classes (tomate et non-tomate)
+num_classes = 22  # Nombre de classes (tomate et non-tomate)
 batch_size = 32
 num_epochs = 10
 learning_rate = 0.001
@@ -20,13 +20,13 @@ data_transform = transforms.Compose([
 ])
 
 # Chargez les données d'entraînement en utilisant ImageFolder
-train_dataset = datasets.ImageFolder(root='fruits_dataset/train', transform=data_transform)
+train_dataset = datasets.ImageFolder(root='ingredients_dataset/train', transform=data_transform)
 
 # Créez un DataLoader pour les données d'entraînement
 train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 
 # Créez une instance du modèle
-model = FruitsClassifier(num_classes)
+model = IngredientsClassifier(num_classes)
 
 # Définissez la fonction de perte et l'optimiseur
 criterion = nn.CrossEntropyLoss()
@@ -54,6 +54,6 @@ for epoch in range(num_epochs):
     print(f'Epoch {epoch+1}/{num_epochs}, Loss: {running_loss / len(train_loader)}')
 
 # Sauvegarder les poids du modèle
-torch.save(model.state_dict(), 'fruits_classifier.pth')
+torch.save(model.state_dict(), 'ingredients_classifier.pth')
 
 print('Entraînement terminé!')

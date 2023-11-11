@@ -1,7 +1,7 @@
 import torch
 
 # Spécifiez le chemin vers le fichier .pth que vous souhaitez inspecter
-file_path = 'fruits_classifier.pth'
+file_path = 'ingredients_classifier.pth'
 
 
 

@@ -3,9 +3,9 @@ import torch
 import torch.nn as nn
 import torchvision.models as models
 
-class FruitsClassifier(nn.Module):
+class IngredientsClassifier(nn.Module):
     def __init__(self, num_classes):
-        super(FruitsClassifier, self).__init__()
+        super(IngredientsClassifier, self).__init__()
 
         # Charger le modèle ResNet-18 pré-entraîné
         self.resnet = models.resnet18(pretrained=True)
