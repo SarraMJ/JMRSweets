@@ -4,6 +4,8 @@ import torchvision.transforms as transforms
 import torch
 import os
 import glob
+import json
+
 
 
 """
@@ -58,11 +60,11 @@ def predict_image(image_file) :
         # Interprets the predictions for the classes 
 
         if predicted.item() == 0:
-            print("apple")
+            return "apple"
         elif predicted.item() == 1:
-            print("chocolate")
+            return "chocolate"
         else:
-            print("prune")
+            return "prune"
 
 
         #Delete the used image
@@ -71,6 +73,8 @@ def predict_image(image_file) :
         #print(f"L'image {image_file} a été supprimée.")
     else:
         print("Aucune image trouvée dans le répertoire 'uploads'.")
+
+
         
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -80,15 +84,8 @@ upload_dir = os.path.join(script_dir, '../uploads')
 
 image_file = None
 
-# Looks or the last image in "uploads" directory 
+ 
 image_files = glob.glob(os.path.join(upload_dir, '*.jpeg')) or glob.glob(os.path.join(upload_dir, '*.jpg')) or glob.glob(os.path.join(upload_dir, '*.png'))
-for image_file in image_files : 
-    predict_image(image_file)
-    
-    """if image_files:
-        # Sorts the files by modification date (the most recent first)
-            image_files.sort(key=os.path.getmtime, reverse=True)
 
-    # Takes the first image (the most recent)
-        image_file = image_files[0]"""
-    
+ingredientsArray = [predict_image(image_file) for image_file in image_files]
+print(json.dumps(ingredientsArray))

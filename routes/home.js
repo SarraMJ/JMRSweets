@@ -5,6 +5,10 @@ const { exec } = require('child_process'); //used for our python script
 const path = require('path'); //used to get absolute paths
 const fs = require('fs'); //allows file system operations to be perfomed (used to check if folder exists)
 
+
+// Variable to store ingredientsArray
+let ingredientsArray = [];
+
 //handle get 
 router.get('/', function (req, res) {
     res.render('home'); 
@@ -58,14 +62,22 @@ router.get('/run-and-clear-uploads', (req, res) => {
     }
 
     // Saves the output of python script
-    const result = stdout;
+    //const result = stdout;
+
+    // Parse the JSON response containing the ingredients array
+    try {
+      ingredientsArray = JSON.parse(stdout);
+    } catch (parseError) {
+      console.error(`Error while parsing JSON response: ${parseError}`);
+      return res.status(500).send('Error while reading the JSON response.');
+    }
 
     // Deletes content of uploads folder
     fs.readdir(upload_directory, (err, files) => {
 
       if (err) {
         console.error(`Error while accessing uploads folder : ${err}`);
-        return res.status(500).send('Erreur while deleting files from uploads.');
+        return res.status(500).send('Error while deleting files from uploads.');
       }
 
       files.forEach(file => {
@@ -74,7 +86,7 @@ router.get('/run-and-clear-uploads', (req, res) => {
       });
 
 
-      res.json({ result: result, message: 'Images deleted successfully!' });
+      res.json({ result: ingredientsArray, message: 'Images deleted successfully!' });
     });
   });
 }); 
