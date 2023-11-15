@@ -1,3 +1,5 @@
+//ingredientsArray = require('../routes/ingredients');
+let ingredientsArray = [];
 $(function () {
 
   //When we click "choose files" the message in "uploadMessage" div disappears (in case user wants to reupload a file)
@@ -25,6 +27,7 @@ $(function () {
       error: function (error) {
         console.error('Error uploading files:', error);
       }
+
     });
   });
 
@@ -35,6 +38,38 @@ $(function () {
       $('#uploadMessage').text(data.message);
     });
   });
+
+  ///////////////////////////////////////////////
+  function getSelectedIngredients() {
+    // Get all checkboxes with name "ingredients"
+    var checkboxes = $('input[name="ingredients"]:checked');
+
+    // Extract values of selected checkboxes and store them in an array
+    var selectedIngredients = checkboxes.map(function() {
+      return this.value;
+    }).get();
+
+    
+
+    // Add the selectedIngredients to ingredientsArray
+   
+    ingredientsArray = ingredientsArray.concat(selectedIngredients);
+
+    // Log or use the updated ingredientsArray as needed
+    console.log(ingredientsArray);
+  }
+
+
+  // Add click event listener for the Submit Ingredients button
+  $('#submitIngredientsButton').on('click', function() {
+    getSelectedIngredients();
+
+    // Send a POST request to submit ingredients
+    $.post('/submit-ingredients', { ingredients: ingredientsArray }, function(data) {
+      console.log('Ingredients submitted:', data.ingredients);
+    });
+  });
+
 });
 
 

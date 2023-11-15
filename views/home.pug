@@ -16,6 +16,31 @@ block content
   // Ajoutez un élément HTML pour afficher la sortie du script Python
   p(id="helloResult")
 
+  
+
+   h2 Other Ingredients
+  form(id="ingredientFormOther")
+    ul
+      li
+        label(for="ingredient1")
+          input(type="checkbox" id="ingredient1" name="ingredients" value="baking powder") 
+          | Baking Powder
+      li
+        label(for="ingredient2")
+          input(type="checkbox" id="ingredient2" name="ingredients" value="baking soda") 
+          | Baking Soda
+      li
+        label(for="ingredient3")
+          input(type="checkbox" id="ingredient3" name="ingredients" value="vanilla") 
+          | Vanilla
+      li
+        label(for="ingredient4")
+          input(type="checkbox" id="ingredient4" name="ingredients" value="sugar") 
+          | Sugar
+
+    button(type="button" , id="submitIngredientsButton") Submit Ingredients 
+    
+    
+
   script(src="https://code.jquery.com/jquery-3.3.1.js") // Utilisez le lien CDN pour jQuery
   script(src="/javascripts/home.js")
-

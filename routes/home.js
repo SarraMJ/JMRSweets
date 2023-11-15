@@ -7,8 +7,8 @@ const fs = require('fs'); //allows file system operations to be perfomed (used t
 
 
 // Variable to store ingredientsArray
-let ingredientsArray = [];
-
+//let ingredientsArray = [];
+ingredientsArray = require('./ingredients');
 //handle get 
 router.get('/', function (req, res) {
     res.render('home'); 
@@ -57,7 +57,7 @@ router.get('/run-and-clear-uploads', (req, res) => {
 
   exec(`python ${scriptPath}`, (error, stdout, stderr) => {
     if (error) {
-      console.error(`Erreur : ${error}`);
+      console.error('Erreur : ${error}');
       return res.status(500).send('Erreur lors de l\'exécution du script Python.');
     }
 
@@ -68,7 +68,7 @@ router.get('/run-and-clear-uploads', (req, res) => {
     try {
       ingredientsArray = JSON.parse(stdout);
     } catch (parseError) {
-      console.error(`Error while parsing JSON response: ${parseError}`);
+      console.error('Error while parsing JSON response: ${parseError}');
       return res.status(500).send('Error while reading the JSON response.');
     }
 
@@ -76,7 +76,7 @@ router.get('/run-and-clear-uploads', (req, res) => {
     fs.readdir(upload_directory, (err, files) => {
 
       if (err) {
-        console.error(`Error while accessing uploads folder : ${err}`);
+        console.error('Error while accessing uploads folder : ${err}');
         return res.status(500).send('Error while deleting files from uploads.');
       }
 
@@ -92,3 +92,8 @@ router.get('/run-and-clear-uploads', (req, res) => {
 }); 
 
 module.exports = router;
+
+// Handles post request to submit ingredients
+router.post('/submit-ingredients', function(req, res) {
+  res.json({ ingredients: ingredientsArray });
+});
