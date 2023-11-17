@@ -1,75 +1,81 @@
-//ingredientsArray = require('../routes/ingredients');
-let ingredientsArray = [];
-$(function () {
+
+
+function writeIngredients(ingredient) {
+  console.log('Sending ingredient to server:', ingredient);
+
+  // Send the ingredient to the server
+  $.ajax({
+    url: '/submit-ingredients',
+    type: 'POST',
+    data: JSON.stringify({ ingredients: [ingredient] }),
+    contentType: 'application/json',
+    success: function (data) {
+      console.log(`"${ingredient}" has been sent to the server successfully!`);
+    },
+    error: function (error) {
+      console.error('Error sending ingredient to server:', error);
+    },
+    complete: function () {
+      console.log('AJAX request complete for ingredient:', ingredient);
+    }
+  });
+}
+
+
+function getSelectedIngredients() {
+  // Get all checkboxes with name "ingredients"
+  var checkboxes = $('input[name="ingredients"]:checked');
+
+  // Log the number of checkboxes and their values
+  console.log('Number of checkboxes:', checkboxes.length);
+
+  // Extract values of selected checkboxes and store them in an array
+  var selectedIngredients = checkboxes.map(function () {
+    return this.value;
+  }).get();
+
+  // Log or use the updated ingredientsArray as needed
+  console.log('Selected ingredients:', selectedIngredients);
+
+  // Write each selected ingredient to the server
+  selectedIngredients.forEach(writeIngredients);
+}
+
+
 
   //When we click "choose files" the message in "uploadMessage" div disappears (in case user wants to reupload a file)
-  $('input[name="images"]').on('change', function () {
-    $('#uploadMessage').text('');
-  });
-
-  // Handle form submission
-  $('#uploadForm').on('submit', function (event) {
-    event.preventDefault(); // Prevents form from submitting in the traditional way
-
-    var formData = new FormData($(this)[0]);  // Create FormData object to send files 
-    // constructs a set of key/value pairs representing form fields and their values, here = collects the data from the selected files
-    $.ajax({
-      url: '/upload', //where request will be sent
-      type: 'POST',
-      data: formData, //what= our uploaded files 
-      contentType: false, // Don't set content type (it will be automatically set) because jquery does it
-      processData: false,  // Don't process the data (it will be automatically processed) because jquery does it
-      success: function (data) {
-        // Shows the success message + resets form to upload new images if needed
-        $('#uploadMessage').text(data.message);
-        $('#uploadForm')[0].reset();
-      },
-      error: function (error) {
-        console.error('Error uploading files:', error);
-      }
-
-    });
-  });
-
-  //  Python part
-  $('#executeFruitsButton').on('click', function () {
-    $.get('/run-and-clear-uploads', function (data) {
-      $('#helloResult').text(data.result);
-      $('#uploadMessage').text(data.message);
-    });
-  });
-
-  ///////////////////////////////////////////////
-  function getSelectedIngredients() {
-    // Get all checkboxes with name "ingredients"
-    var checkboxes = $('input[name="ingredients"]:checked');
-
-    // Extract values of selected checkboxes and store them in an array
-    var selectedIngredients = checkboxes.map(function() {
-      return this.value;
-    }).get();
-
-    
-
-    // Add the selectedIngredients to ingredientsArray
-   
-    ingredientsArray = ingredientsArray.concat(selectedIngredients);
-
-    // Log or use the updated ingredientsArray as needed
-    console.log(ingredientsArray);
-  }
-
-
-  // Add click event listener for the Submit Ingredients button
-  $('#submitIngredientsButton').on('click', function() {
-    getSelectedIngredients();
-
-    // Send a POST request to submit ingredients
-    $.post('/submit-ingredients', { ingredients: ingredientsArray }, function(data) {
-      console.log('Ingredients submitted:', data.ingredients);
-    });
-  });
-
+$('input[name="images"]').on('change', function () {
+  $('#uploadMessage').text('');
 });
 
+ // Handle form submission
+$('#uploadForm').on('submit', function (event) {
+  event.preventDefault(); // Prevents form from submitting in the traditional way
 
+  // Upload images
+  var formData = new FormData($(this)[0]);
+  $.ajax({
+    url: '/upload',
+    type: 'POST',
+    data: formData,
+    contentType: false,
+    processData: false,
+    success: function (data) {
+      $('#uploadMessage').text(data.message);
+      $('#uploadForm')[0].reset();
+
+      // Execute Python script
+      $.get('/run-and-clear-uploads', function (data) {
+        $('#helloResult').text(data.result);
+        $('#uploadMessage').text(data.message);
+
+        
+      });
+    },
+    error: function (error) {
+      console.error('Error uploading files:', error);
+
+    }
+  });
+  getSelectedIngredients();
+});

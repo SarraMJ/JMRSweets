@@ -5,42 +5,40 @@ block content
 
   div(id=formshape)
     form(action="/upload", method="POST", enctype="multipart/form-data", id="uploadForm")
+      label(for="images") Choose your images below: 
+      br
+      br
       input(type="file", name="images", accept="image/*" multiple)
       br 
       br
-      button(type="submit") Submit
+      label(for="ingredients") Choose other ingredients : 
+      br
+      br
+      input(type="checkbox" id="ingredient1" name="ingredients" value="baking powder") 
+      label(for="ingredient1") Baking Powder
+      br
+      input(type="checkbox" id="ingredient2" name="ingredients" value="baking soda") 
+      label(for="ingredient2") Baking Soda
+      br
+      input(type="checkbox" id="ingredient3" name="ingredients" value="vanilla") 
+      label(for="ingredient3") Vanilla
+      br
+      input(type="checkbox" id="ingredient4" name="ingredients" value="sugar") 
+      label(for="ingredient4") Sugar
+
+      br
+      br
+
+      button(type="submit") Generate recipes
       div(id="uploadMessage")
     br
-    button(id="executeFruitsButton") Execute fruits.py and clear uploads
+    
 
-  // Ajoutez un élément HTML pour afficher la sortie du script Python
   p(id="helloResult")
 
   
 
-   h2 Other Ingredients
-  form(id="ingredientFormOther")
-    ul
-      li
-        label(for="ingredient1")
-          input(type="checkbox" id="ingredient1" name="ingredients" value="baking powder") 
-          | Baking Powder
-      li
-        label(for="ingredient2")
-          input(type="checkbox" id="ingredient2" name="ingredients" value="baking soda") 
-          | Baking Soda
-      li
-        label(for="ingredient3")
-          input(type="checkbox" id="ingredient3" name="ingredients" value="vanilla") 
-          | Vanilla
-      li
-        label(for="ingredient4")
-          input(type="checkbox" id="ingredient4" name="ingredients" value="sugar") 
-          | Sugar
+  script(src="/jquery/jquery.min.js")
 
-    button(type="button" , id="submitIngredientsButton") Submit Ingredients 
-    
-    
-
-  script(src="https://code.jquery.com/jquery-3.3.1.js") // Utilisez le lien CDN pour jQuery
   script(src="/javascripts/home.js")
+  
