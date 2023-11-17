@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var multer = require('multer');
 var fileUpload = require('express-fileupload');
-
+var sqlite3 = require('sqlite3').verbose();
 
 //create an instance of express (to define routes)
 var app = express();
@@ -14,6 +14,10 @@ var app = express();
 // view engine setup : we use pug
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+// Configure the SQLite database connection
+const dbPath = path.join(__dirname, './data/recipes.db'); // Update the path accordingly
+const db = new sqlite3.Database(dbPath);
 
 //indludes route files to handle routes either in index or users
 var homeRouter = require('./routes/home');
