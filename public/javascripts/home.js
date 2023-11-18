@@ -79,3 +79,16 @@ $('#uploadForm').on('submit', function (event) {
   });
   getSelectedIngredients();
 });
+
+$('#generateRecipes').on('click', function () {
+  console.log('test3');
+  $.post('/search-recipes', function (data) {
+    console.log('blabla');
+    // Update the content of the paragraph with the received data
+    $('#recipeResults').html(data);
+
+    // Additional logic if needed
+    console.log('Results received:', data);
+  });
+});
+
