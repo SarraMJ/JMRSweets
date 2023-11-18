@@ -126,28 +126,36 @@ router.post('/submit-ingredients', (req, res) => {
 
 router.post('/search-recipes', (req, res) => {
   const generatedRecipes = path.join(__dirname, '../data/recipes.js');
-  var recipesLogic = require(generatedRecipes);
+  const recipesLogic = require(generatedRecipes);
 
   console.log('TEST');
   // Use the searchRecipes function with a callback
   recipesLogic.searchRecipes((err, rows) => {
+    console.log('BOUCLE');
     if (err) {
       console.error('Error searching recipes:', err);
-      // Handle the error gracefully, e.g., render an error template
-      res.render('error', { error: 'An error occurred while searching for recipes.' });
-      return;
+
+      // Log the request details
+      console.log('Request Body:', req.body);
+      console.log('Request Headers:', req.headers);
+
+      // Send the error details to the client for debugging
+      return res.status(500).json({ error: 'Internal Server Error', details: err });
     }
 
     // Check if any results were found
     if (rows.length > 0) {
+      console.log('BOUCLE2');
       // Send the results to the front end
-      res.render('results', { recipes: rows });
+      res.render('home', { recipes: rows });
+      console.log('BOUCLE3');
     } else {
       // No matching recipes found
       res.render('no-results');
     }
   });
 });
+
 
 module.exports = router;
 

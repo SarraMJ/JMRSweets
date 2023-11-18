@@ -80,15 +80,16 @@ $('#uploadForm').on('submit', function (event) {
   getSelectedIngredients();
 });
 
+// Assuming you have a button with id 'generateRecipes' in your 'home.pug'
 $('#generateRecipes').on('click', function () {
-  console.log('test3');
   $.post('/search-recipes', function (data) {
-    console.log('blabla');
-    // Update the content of the paragraph with the received data
+    // Update the content of the recipeResults div with the received HTML data
     $('#recipeResults').html(data);
 
     // Additional logic if needed
     console.log('Results received:', data);
+  }).fail(function (error) {
+    // Handle errors, such as displaying an error message
+    console.error('Error receiving search results:', error);
   });
 });
-

@@ -37,7 +37,17 @@ block content
     button(id="generateRecipes" type='button') Generate Recipes
 
   p(id="helloResult")
-  p(id="recipeResults")
+  div(id="recipeResults")
+    // Display the search results
+    if recipes && recipes.length > 0
+      h2 Search Results:
+      each recipe in recipes
+        p Title: #{recipe.Title}
+        p Category: #{recipe.Category}
+        p Missing Ingredients: #{recipe.MissingIngredients}
+        // Add more details as needed
+    else
+      p No matching recipes found.
 
   script(src="/jquery/jquery.min.js")
   script(src="/javascripts/home.js")
