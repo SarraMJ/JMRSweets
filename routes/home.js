@@ -119,43 +119,32 @@ router.post('/submit-ingredients', (req, res) => {
   });
 });
 
-// routes/home.js
-
-//const generatedRecipes = path.join(__dirname, '../data/recipes.js');
-//var recipesLogic = require('../data/recipes.js');
-
-router.post('/search-recipes', (req, res) => {
-  const generatedRecipes = path.join(__dirname, '../data/recipes.js');
+  
+  router.post('/search-recipes', (req, res) => {
+    const generatedRecipes = path.join(__dirname, '../data/recipes.js');
   const recipesLogic = require(generatedRecipes);
+    recipesLogic.searchRecipes((err, rows) => {
+        if (err) {
+            console.error('Error searching recipes:', err);
 
-  console.log('TEST');
-  // Use the searchRecipes function with a callback
-  recipesLogic.searchRecipes((err, rows) => {
-    console.log('BOUCLE');
-    if (err) {
-      console.error('Error searching recipes:', err);
+            // Log the request details
+            console.log('Request Body:', req.body);
+            console.log('Request Headers:', req.headers);
 
-      // Log the request details
-      console.log('Request Body:', req.body);
-      console.log('Request Headers:', req.headers);
+            // Send the error details to the client for debugging
+            return res.status(500).json({ error: 'Internal Server Error', details: err });
+        }
 
-      // Send the error details to the client for debugging
-      return res.status(500).json({ error: 'Internal Server Error', details: err });
-    }
-
-    // Check if any results were found
-    if (rows.length > 0) {
-      console.log('BOUCLE2');
-      // Send the results to the front end
-      res.render('home', { recipes: rows });
-      console.log('BOUCLE3');
-    } else {
-      // No matching recipes found
-      res.render('no-results');
-    }
-  });
+        // Check if any results were found
+        if (rows.length > 0) {
+            // Send the results to the front end
+            res.render('home', { recipes: rows });
+        } else {
+            // No matching recipes found
+            res.render('no-results');
+        }
+    });
 });
-
 
 module.exports = router;
 

@@ -1,5 +1,3 @@
-// data/recipes.js
-
 const fs = require('fs');
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
@@ -7,7 +5,7 @@ const sqlite3 = require('sqlite3').verbose();
 function readIngredientsFile(filePath) {
     try {
         const ingredientsContent = fs.readFileSync(filePath, 'utf-8');
-        // Divise le contenu en lignes et supprime les espaces inutiles
+        // Divide the content into lines and remove unnecessary spaces
         const ingredientsArray = ingredientsContent.split('\n').map(line => line.trim());
         return ingredientsArray;
     } catch (error) {
@@ -16,36 +14,28 @@ function readIngredientsFile(filePath) {
     }
 }
 
-const ingredientsFilePath = path.join(__dirname, '../ingredients.txt');
-const ingredientsArray = readIngredientsFile(ingredientsFilePath);
-console.log(ingredientsArray);
-
-
 function searchRecipes(callback) {
     try {
-        
         const dbFilePath = path.join(__dirname, './recipes.db');
         const db = new sqlite3.Database(dbFilePath);
 
-        const placeholders = Array.from({ length: 19 }, (_, i) => `Ingredient${String(i + 1).padStart(2, '0')} LIKE ?`).join(' OR ');
-        const query = `
-            SELECT Title, Category, COUNT(*) AS MissingIngredients
-            FROM recipes
-            WHERE (${placeholders})
-            AND Category IN ('Cakes', 'Pies', 'Desserts')
-            GROUP BY Title, Category
-            ORDER BY MissingIngredients ASC
-            LIMIT 3
-        `;
+        const ingredientsFilePath = path.join(__dirname, '../ingredients.txt');
+        const ingredientsArray = readIngredientsFile(ingredientsFilePath);
+        console.log(ingredientsArray);
 
-        const ingredientsWithWildcards = ingredientsList.map(ingredient => `%${ingredient}%`);
+        let whereConditions = ingredientsArray.map(ingredient => `AllIngredients LIKE '%${ingredient}%'`);
+        let whereClause = whereConditions.join(' OR ');
+        let sqlQuery = `SELECT Title, Category FROM recipes WHERE ${whereClause} LIMIT 5;`;
 
-        db.all(query, ingredientsWithWildcards, (err, rows) => {
-            db.close();
+        // Execute the SQL query
+        db.all(sqlQuery, (err, rows) => {
+            // Close the database connection regardless of the result
+            
 
             if (err) {
-                // Log the error
+                // Log the error with detailed information
                 console.error('Error executing the query:', err);
+                console.error('Failed SQL query:', sqlQuery);
                 // Pass the error to the callback
                 callback(err);
                 return;
@@ -56,6 +46,13 @@ function searchRecipes(callback) {
 
             // Invoke the callback with the search results
             callback(null, rows);
+            db.close((closeErr) => {
+                if (closeErr) {
+                    console.error('Error closing database:', closeErr.message);
+                } else {
+                    console.log('Disconnected from the database');
+                }
+            });
         });
     } catch (error) {
         // Log any unexpected errors
