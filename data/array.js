@@ -34,11 +34,7 @@ try {
     let sqlQuery = `
     SELECT Title, Category, AllIngredients,
            (${ingredientsArray.map(ingredient => `CASE WHEN AllIngredients LIKE '%${ingredient}%' THEN 1 ELSE 0 END`).join(' + ')}) AS MatchCount,
-           ${ingredientsArray.length} - (${ingredientsArray.map(ingredient => `CASE WHEN AllIngredients LIKE '%${ingredient}%' THEN 1 ELSE 0 END`).join(' + ')}) AS MissingCount,
-           GROUP_CONCAT(
-               CASE WHEN AllIngredients NOT LIKE '%${ingredientsArray.join("%' AND AllIngredients NOT LIKE '%")}%' 
-               THEN AllIngredients END, ', '
-           ) AS MissingIngredients
+           NumIngredients - (${ingredientsArray.map(ingredient => `CASE WHEN AllIngredients LIKE '%${ingredient}%' THEN 1 ELSE 0 END`).join(' + ')}) AS MissingCount
     FROM recipes 
     WHERE ${whereClause} 
     GROUP BY Title, Category, AllIngredients

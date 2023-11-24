@@ -41,6 +41,19 @@ function getSelectedIngredients() {
   selectedIngredients.forEach(writeIngredients);
 }
 
+function generateRecipes() {
+  $.post('/search-recipes', function (data) {
+    // Update the content of the recipeResults div with the received HTML data
+    $('#recipeResults').html(data);
+
+    // Additional logic if needed
+    console.log('Results received:', data);
+  }).fail(function (error) {
+    // Handle errors, such as displaying an error message
+    console.error('Error receiving search results:', error);
+  });
+}
+
 
 
   //When we click "choose files" the message in "uploadMessage" div disappears (in case user wants to reupload a file)
@@ -49,10 +62,9 @@ $('input[name="images"]').on('change', function () {
 });
 
  // Handle form submission
-$('#uploadForm').on('submit', function (event) {
-  event.preventDefault(); // Prevents form from submitting in the traditional way
+ $('#uploadForm').on('submit', function (event) {
+  event.preventDefault();
 
-  // Upload images
   var formData = new FormData($(this)[0]);
   $.ajax({
     url: '/upload',
@@ -64,22 +76,23 @@ $('#uploadForm').on('submit', function (event) {
       $('#uploadMessage').text(data.message);
       $('#uploadForm')[0].reset();
 
-      // Execute Python script
       $.get('/run-and-clear-uploads', function (data) {
         $('#helloResult').text(data.result);
         $('#uploadMessage').text(data.message);
-
-        
       });
     },
     error: function (error) {
       console.error('Error uploading files:', error);
-
+    },
+    complete: function () {
+      getSelectedIngredients();
+      $('#uploadForm').hide();
+      generateRecipes();
     }
   });
-  getSelectedIngredients();
 });
 
+/*
 // Assuming you have a button with id 'generateRecipes' in your 'home.pug'
 $('#generateRecipes').on('click', function () {
   $.post('/search-recipes', function (data) {
@@ -92,4 +105,4 @@ $('#generateRecipes').on('click', function () {
     // Handle errors, such as displaying an error message
     console.error('Error receiving search results:', error);
   });
-});
+}); */
