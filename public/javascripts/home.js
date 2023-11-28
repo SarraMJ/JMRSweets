@@ -37,6 +37,14 @@ function getSelectedIngredients() {
   // Write each selected ingredient to the server
   selectedIngredients.forEach(writeIngredients);
 }
+// manage the Back Home button
+function toggleBackToFormButtonVisibility(show) {
+  if (show) {
+    $('#backToFormButton').show();
+  } else {
+    $('#backToFormButton').hide();
+  }
+}
 
 function generateRecipes() {
   $.post('/search-recipes', function (data) {
@@ -54,9 +62,13 @@ function generateRecipes() {
         <p>Missing Ingredients: ${recipe.MissingCount}</p>
       `);
     });
+     // Show the back to form button
+     toggleBackToFormButtonVisibility(true);
   } else {
     // Handle case when no recipes are found
     $('#recipeResults').html('<p>No matching recipes found.</p>');
+     // Hide the back to form button
+     toggleBackToFormButtonVisibility(false);
   }
 
     // Additional logic if needed
@@ -64,9 +76,14 @@ function generateRecipes() {
   }).fail(function (error) {
     // Handle errors, such as displaying an error message
     console.error('Error receiving search results:', error);
+    // Hide the back to form button in case of an error
+    toggleBackToFormButtonVisibility(false);
   });
 }
-
+//click on bach Home => returns to home without the recipes. 
+$('#backToFormButton').on('click', function () {
+  window.location.href = '/'; 
+});
 
 
   //When we click "choose files" the message in "uploadMessage" div disappears (in case user wants to reupload a file)
