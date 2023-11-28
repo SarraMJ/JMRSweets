@@ -70,7 +70,7 @@ def predict_image(image_file) :
         elif predicted.item() == 4:
             return "chocolate"
         elif predicted.item()==5:
-            return "cocoa powder"
+            return "cocoa"
         elif predicted.item() == 6:
             return "egg"
         elif predicted.item() ==7:
@@ -101,7 +101,7 @@ def predict_image(image_file) :
         elif predicted.item() == 19:
             return "raspberry"
         elif predicted.item() == 20:
-            return "strawberry"            
+            return "strawberries"            
         else:
             return "watermelon"
 
