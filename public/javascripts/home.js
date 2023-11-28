@@ -56,11 +56,11 @@ function generateRecipes() {
       data.recipes.forEach(recipe => {
         // Append recipe details to the container
         $('#recipeResults').append(`
-          <p>Title: ${recipe.Title}</p>
-          <p>Category: ${recipe.Category}</p>
-          <p>List of ingredients: ${recipe.AllIngredients}</p>
-          <p>Matched Ingredients: ${recipe.MatchCount}</p>
+          <h2> ${recipe.Title}</h2>
+          <h5>Category: ${recipe.Category}</h5>
+          <p>Number of matched Ingredients: ${recipe.MatchCount}</p>
           <p>Missing Ingredients: ${recipe.MissingCount}</p>
+          <p>Ingredients: ${recipe.AllIngredients}</p>
         `);
       });
       // Show the back to form button
@@ -130,7 +130,7 @@ $('#uploadForm').on('submit', function (event) {
       $('#uploadForm')[0].reset();
 
       $.get('/run-and-clear-uploads', function (data) {
-        $('#helloResult').text(data.result);
+       // $('#helloResult').text(data.result);
         $('#uploadMessage').text(data.message);
 
         // Resolve the deferred object to indicate completion
