@@ -1,3 +1,6 @@
+
+
+
 from PIL import Image
 from model import IngredientsClassifier
 import torchvision.transforms as transforms
@@ -47,7 +50,7 @@ def predict_image(image_file) :
         # Construct the full path to the image file
         image_pat = os.path.join(script_dir, image_fil)
         model_checkpoint = image_pat #'training/fruits_classifier.pth'
-        model = IngredientsClassifier(num_classes=22)  # Assurez-vous d'utiliser les mêmes paramètres que lors de l'entraînement
+        model = IngredientsClassifier(num_classes=14)  # Assurez-vous d'utiliser les mêmes paramètres que lors de l'entraînement
         model.load_state_dict(torch.load(model_checkpoint))
         model.eval()
 
@@ -65,45 +68,31 @@ def predict_image(image_file) :
             return "banana"   
         elif predicted.item()== 2:
             return "carrot"
-        elif predicted.item()== 3:
-            return "cherry"     
-        elif predicted.item() == 4:
+    
+        elif predicted.item() == 3:
             return "chocolate"
-        elif predicted.item()==5:
+        elif predicted.item()==4:
             return "cocoa"
-        elif predicted.item() == 6:
+        elif predicted.item() == 5:
             return "egg"
-        elif predicted.item() ==7:
-	        return "flour"
+        elif predicted.item() ==6:
+            return "flour"
+        elif predicted.item() == 7:
+            return "ice cream"
         elif predicted.item() == 8:
-	        return "grapes"
+            return "lemon"
         elif predicted.item() == 9:
-	        return "ice cream"
+            return "milk"
         elif predicted.item() == 10:
-	        return "kiwi"
-        elif predicted.item() == 11:
-	        return "lemon"
-        elif predicted.item() == 12:
-	        return "mango"
-        elif predicted.item() == 13:
-	        return "milk"
-        elif predicted.item() == 14:
-	        return "orange"
+            return "orange"
         
-        elif predicted.item() == 15:
+        elif predicted.item() == 11:
             return "pear"
-        elif predicted.item() == 16:
+        elif predicted.item() == 12:
             return "pineapple"
-        elif predicted.item() == 17:
-            return "plum"
-        elif predicted.item() == 18:
-            return "pomegranate"
-        elif predicted.item() == 19:
-            return "raspberry"
-        elif predicted.item() == 20:
+        elif predicted.item() == 13:
             return "strawberries"            
-        else:
-            return "watermelon"
+    
 
 
         #Delete the used image

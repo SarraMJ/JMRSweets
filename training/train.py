@@ -6,7 +6,7 @@ from torchvision import transforms, datasets  # Updated import
 from model import IngredientsClassifier  # Importez votre classe de modèle
 
 # Paramètres d'entraînement
-num_classes = 22  # Nombre de classes (tomate et non-tomate)
+num_classes = 14  # Nombre de classes (tomate et non-tomate)
 batch_size = 32
 num_epochs = 10
 learning_rate = 0.001

@@ -23,7 +23,7 @@ test_dataset = ImageFolder(root='ingredients_dataset/test', transform=transform)
 test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
 
 # Chargez le modèle pré-entraîné
-model = IngredientsClassifier(num_classes=22)  # Assurez-vous d'utiliser les mêmes paramètres que lors de l'entraînement
+model = IngredientsClassifier(num_classes=14)  # Assurez-vous d'utiliser les mêmes paramètres que lors de l'entraînement
 model.load_state_dict(torch.load(model_checkpoint))
 model.eval()
 
