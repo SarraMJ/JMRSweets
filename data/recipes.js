@@ -27,14 +27,15 @@ function searchRecipes(callback) {
     let whereClause = whereConditions.join(' OR ');
 
     let sqlQuery = `
-    SELECT Title, Category, AllIngredients,
-           (${ingredientsArray.map(ingredient => `CASE WHEN AllIngredients LIKE '%${ingredient}%' THEN 1 ELSE 0 END`).join(' + ')}) AS MatchCount,
-           NumIngredients - (${ingredientsArray.map(ingredient => `CASE WHEN AllIngredients LIKE '%${ingredient}%' THEN 1 ELSE 0 END`).join(' + ')}) AS MissingCount
-    FROM recipes 
-    WHERE ${whereClause} 
-    GROUP BY Title, Category, AllIngredients
-    ORDER BY MissingCount ASC, MatchCount DESC
-    LIMIT 3;
+    SELECT Title, Category, AllIngredients, Directions, AllRecipe,
+    (${ingredientsArray.map(ingredient => `CASE WHEN AllIngredients LIKE '%${ingredient}%' THEN 1 ELSE 0 END`).join(' + ')}) AS MatchCount,
+    NumIngredients - (${ingredientsArray.map(ingredient => `CASE WHEN AllIngredients LIKE '%${ingredient}%' THEN 1 ELSE 0 END`).join(' + ')}) AS MissingCount
+FROM recipes 
+WHERE ${whereClause} 
+GROUP BY Title, Category, AllIngredients, Directions, AllRecipe
+ORDER BY MissingCount ASC, MatchCount DESC
+LIMIT 3;
+
 `;
         // Execute the SQL query
         db.all(sqlQuery, (err, rows) => {            

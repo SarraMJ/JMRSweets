@@ -53,14 +53,31 @@ function generateRecipes() {
     if (data.recipes && data.recipes.length > 0) {
       // Clear existing content before updating
       $('#recipeResults').empty();
+      
       data.recipes.forEach(recipe => {
         // Append recipe details to the container
+        const ingredientsArray = recipe.AllRecipe.split(' ; ').filter(Boolean);
+
+        // Create a formatted list of ingredients
+        const formattedIngredients = ingredientsArray.map(ingredient => `<li>${ingredient}</li>`).join('');
+
+        const directionsArray = recipe.Directions.split('. ').filter(Boolean);
+
+        // Create a formatted list of ingredients
+        const formatteddirections = directionsArray.map(direction => `<li>${direction}</li>`).join('');
+
         $('#recipeResults').append(`
           <h2> ${recipe.Title}</h2>
           <h5>Category: ${recipe.Category}</h5>
           <p>Number of matched Ingredients: ${recipe.MatchCount}</p>
           <p>Missing Ingredients: ${recipe.MissingCount}</p>
-          <p>Ingredients: ${recipe.AllIngredients}</p>
+          <p>Ingredients:</p>
+          <ul>${formattedIngredients}</ul>          
+          <p>Directions:  
+          <ol>
+          ${formatteddirections}
+          </ol>
+          </p>
         `);
       });
       // Show the back to form button
