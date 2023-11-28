@@ -6,7 +6,8 @@ function readIngredientsFile(filePath) {
     try {
         const ingredientsContent = fs.readFileSync(filePath, 'utf-8');
         // Divide the content into lines and remove unnecessary spaces
-        const ingredientsArray = ingredientsContent.split('\n').map(line => line.trim());
+        // Divide the content into lines and remove unnecessary spaces
+        const ingredientsArray = ingredientsContent.split('\n').map(line => line.trim()).filter(Boolean);
         return ingredientsArray;
     } catch (error) {
         console.error('Error reading ingredients file:', error);
