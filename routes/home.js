@@ -92,8 +92,6 @@ router.get('/run-and-clear-uploads', (req, res) => {
 });
 
 //handles checked ingredients part
-router.use(express.json());
-
 router.post('/submit-ingredients', (req, res) => {
   console.log('Request received:', req.body);
 

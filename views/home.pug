@@ -5,15 +5,11 @@ block content
 
   div(id=formshape)
     form(action="/upload", method="POST", enctype="multipart/form-data", id="uploadForm")
-      label(for="images") Choose your images below: 
-      br
-      br
+      h4 Choose your images below: 
       input(type="file", name="images", accept="image/*" multiple)
       br 
       br
-      label(for="ingredients") Choose other ingredients : 
-      br
-      br
+      h4 Choose other ingredients : 
       input(type="checkbox" id="ingredient1" name="ingredients" value="baking powder") 
       label(for="ingredient1") Baking Powder
       br

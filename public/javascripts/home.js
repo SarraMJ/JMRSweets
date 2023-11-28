@@ -37,6 +37,7 @@ function getSelectedIngredients() {
   // Write each selected ingredient to the server
   selectedIngredients.forEach(writeIngredients);
 }
+
 // manage the Back Home button
 function buttonVisibility(show) {
   if (show) {
@@ -141,12 +142,11 @@ $('#uploadForm').on('submit', function (event) {
 
       // Reject the deferred object in case of an error
       deferred.reject();
-    },
-    complete: function () {
-      getSelectedIngredients();
-      $('#uploadForm').hide();
     }
   });
+
+  getSelectedIngredients();
+      $('#uploadForm').hide();
 
   // Use the deferred object to wait for completion
   deferred.done(function () {
