@@ -23,7 +23,7 @@ function searchRecipes(callback) {
         const ingredientsArray = readIngredientsFile(ingredientsFilePath);
         console.log(ingredientsArray);
 
-        let whereConditions = ingredientsArray.map(ingredient => `AllIngredients LIKE '%${ingredient}%'`);
+    let whereConditions = ingredientsArray.map(ingredient => `AllIngredients LIKE '%${ingredient}%'`);
     let whereClause = whereConditions.join(' OR ');
 
     let sqlQuery = `
@@ -37,10 +37,7 @@ function searchRecipes(callback) {
     LIMIT 3;
 `;
         // Execute the SQL query
-        db.all(sqlQuery, (err, rows) => {
-            // Close the database connection regardless of the result
-            
-
+        db.all(sqlQuery, (err, rows) => {            
             if (err) {
                 // Log the error with detailed information
                 console.error('Error executing the query:', err);
