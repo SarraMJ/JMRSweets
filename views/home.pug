@@ -38,18 +38,6 @@ block content
   p(id="helloResult")
   div(id="recipeResults")
     // Display the search results
-    if recipes && recipes.length > 0
-      h2 Search Results:
-      each recipe in recipes
-        p Title: #{recipe.Title}
-        p Category: #{recipe.Category}
-        p List of ingredients: #{recipe.AllIngredients}
-        p Matched Ingredients: #{recipe.MatchCount}
-        p Missing Ingredients: #{recipe.MissingCount}
-
-        // Add more details as needed
-    else
-      p No matching recipes found.
 
   script(src="/jquery/jquery.min.js")
   script(src="/javascripts/home.js")

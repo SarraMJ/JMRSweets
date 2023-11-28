@@ -44,7 +44,25 @@ function getSelectedIngredients() {
 function generateRecipes() {
   $.post('/search-recipes', function (data) {
     // Update the content of the recipeResults div with the received HTML data
-    $('#recipeResults').html(data);
+    if (data.recipes && data.recipes.length > 0) {
+      // Clear existing content before updating
+      $('#recipeResults').empty();
+    //$('#recipeResults').html('');
+    //$('#recipeResults').html(data);
+    data.recipes.forEach(recipe => {
+      // Append recipe details to the container
+      $('#recipeResults').append(`
+        <p>Title: ${recipe.Title}</p>
+        <p>Category: ${recipe.Category}</p>
+        <p>List of ingredients: ${recipe.AllIngredients}</p>
+        <p>Matched Ingredients: ${recipe.MatchCount}</p>
+        <p>Missing Ingredients: ${recipe.MissingCount}</p>
+      `);
+    });
+  } else {
+    // Handle case when no recipes are found
+    $('#recipeResults').html('<p>No matching recipes found.</p>');
+  }
 
     // Additional logic if needed
     console.log('Results received:', data);
@@ -75,7 +93,7 @@ $('input[name="images"]').on('change', function () {
     success: function (data) {
       $('#uploadMessage').text(data.message);
       $('#uploadForm')[0].reset();
-
+      
       $.get('/run-and-clear-uploads', function (data) {
         $('#helloResult').text(data.result);
         $('#uploadMessage').text(data.message);

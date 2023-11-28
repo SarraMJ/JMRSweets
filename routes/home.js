@@ -132,11 +132,10 @@ router.post('/search-recipes', (req, res) => {
       return res.status(500).json({ error: 'Internal Server Error', details: err });
     }
 
-    if (rows.length > 0) {
-      res.render('home', { recipes: rows });
-    } else {
-      res.render('no-results');
-    }
+    if (req.xhr) {
+      // If the request is AJAX, send JSON data
+      return res.json({ recipes: rows });
+    } 
   });
 });
 
