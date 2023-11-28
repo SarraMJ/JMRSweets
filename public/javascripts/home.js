@@ -52,34 +52,46 @@ function generateRecipes() {
     if (data.recipes && data.recipes.length > 0) {
       // Clear existing content before updating
       $('#recipeResults').empty();
-    data.recipes.forEach(recipe => {
-      // Append recipe details to the container
-      $('#recipeResults').append(`
-        <p>Title: ${recipe.Title}</p>
-        <p>Category: ${recipe.Category}</p>
-        <p>List of ingredients: ${recipe.AllIngredients}</p>
-        <p>Matched Ingredients: ${recipe.MatchCount}</p>
-        <p>Missing Ingredients: ${recipe.MissingCount}</p>
-      `);
-    });
-     // Show the back to form button
-     toggleBackToFormButtonVisibility(true);
-  } else {
-    // Handle case when no recipes are found
-    $('#recipeResults').html('<p>No matching recipes found.</p>');
-     // Hide the back to form button
-     toggleBackToFormButtonVisibility(false);
-  }
+      data.recipes.forEach(recipe => {
+        // Append recipe details to the container
+        $('#recipeResults').append(`
+          <p>Title: ${recipe.Title}</p>
+          <p>Category: ${recipe.Category}</p>
+          <p>List of ingredients: ${recipe.AllIngredients}</p>
+          <p>Matched Ingredients: ${recipe.MatchCount}</p>
+          <p>Missing Ingredients: ${recipe.MissingCount}</p>
+        `);
+      });
+
+      // After generating recipes, clear the content of ingredients.txt
+      clearIngredientsFile();
+    } else {
+      // Handle case when no recipes are found
+      $('#recipeResults').html('<p>No matching recipes found.</p>');
+    }
 
     // Additional logic if needed
     console.log('Results received:', data);
   }).fail(function (error) {
     // Handle errors, such as displaying an error message
     console.error('Error receiving search results:', error);
-    // Hide the back to form button in case of an error
-    toggleBackToFormButtonVisibility(false);
   });
 }
+
+// Function to clear the content of ingredients.txt
+function clearIngredientsFile() {
+  $.ajax({
+    url: '/clear-ingredients-file',
+    type: 'POST',
+    success: function (data) {
+      console.log('Ingredients file cleared successfully!');
+    },
+    error: function (error) {
+      console.error('Error clearing ingredients file:', error);
+    }
+  });
+}
+
 //click on bach Home => returns to home without the recipes. 
 $('#backToFormButton').on('click', function () {
   window.location.href = '/'; 

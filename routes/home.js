@@ -139,6 +139,20 @@ router.post('/search-recipes', (req, res) => {
   });
 });
 
+router.post('/clear-ingredients-file', (req, res) => {
+  const filePath = path.join(__dirname, '../ingredients.txt');
+
+  // Clear the content of ingredients.txt
+  fs.writeFile(filePath, '', (err) => {
+    if (err) {
+      console.error('Error clearing ingredients.txt:', err);
+      return res.status(500).json({ error: 'Error clearing ingredients.txt' });
+    }
+
+    res.json({ success: true });
+  });
+});
+
 module.exports = router;
 
 
