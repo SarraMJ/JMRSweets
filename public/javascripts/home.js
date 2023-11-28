@@ -1,5 +1,3 @@
-
-
 function writeIngredients(ingredient) {
   console.log('Sending ingredient to server:', ingredient);
 
@@ -20,7 +18,6 @@ function writeIngredients(ingredient) {
     }
   });
 }
-
 
 function getSelectedIngredients() {
   // Get all checkboxes with name "ingredients"
@@ -47,8 +44,6 @@ function generateRecipes() {
     if (data.recipes && data.recipes.length > 0) {
       // Clear existing content before updating
       $('#recipeResults').empty();
-    //$('#recipeResults').html('');
-    //$('#recipeResults').html(data);
     data.recipes.forEach(recipe => {
       // Append recipe details to the container
       $('#recipeResults').append(`
@@ -78,12 +73,15 @@ function generateRecipes() {
 $('input[name="images"]').on('change', function () {
   $('#uploadMessage').text('');
 });
-
- // Handle form submission
- $('#uploadForm').on('submit', function (event) {
+// Handle form submission
+$('#uploadForm').on('submit', function (event) {
   event.preventDefault();
 
   var formData = new FormData($(this)[0]);
+  
+  // Create a deferred object
+  var deferred = $.Deferred();
+
   $.ajax({
     url: '/upload',
     type: 'POST',
@@ -93,20 +91,31 @@ $('input[name="images"]').on('change', function () {
     success: function (data) {
       $('#uploadMessage').text(data.message);
       $('#uploadForm')[0].reset();
-      
+
       $.get('/run-and-clear-uploads', function (data) {
         $('#helloResult').text(data.result);
         $('#uploadMessage').text(data.message);
+
+        // Resolve the deferred object to indicate completion
+        deferred.resolve();
       });
     },
     error: function (error) {
       console.error('Error uploading files:', error);
+
+      // Reject the deferred object in case of an error
+      deferred.reject();
     },
     complete: function () {
       getSelectedIngredients();
       $('#uploadForm').hide();
-      generateRecipes();
     }
+  });
+
+  // Use the deferred object to wait for completion
+  deferred.done(function () {
+    // Now that the GET request and getSelectedIngredients are complete, call generateRecipes
+    generateRecipes();
   });
 });
 
