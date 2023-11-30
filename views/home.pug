@@ -1,7 +1,9 @@
 extends layout
 
 block content
-  h1 Welcome to JMRSweets
+  .title
+  h3 Capture, Click, Create
+  h3| Your One-Click Gateway to Delicious Dessert Recipes!
 
   div(id=formshape)
     form(action="/upload", method="POST", enctype="multipart/form-data", id="uploadForm")

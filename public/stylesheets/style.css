@@ -7,22 +7,26 @@ body {
   min-height: 100vh;
   padding-bottom: 100px;
   overflow-y: auto; 
+  background-color: #ffff;
 }
 
 header {
-  background-color: #e76c8b;
-  color: #d06cba;
+  background-color: #ddc0b4;
   display: flex;
   justify-content:space-between;
   align-items:center;
   padding: 10px 20px;
+  color : #724c38;
+  font-style: italic;
+  font-size: 100%;
 }
 
 .logo img {
-  width: 150px; 
-  height: 150px;
-  border-radius: 50%;
+  width: 100px; 
+  height: 100px;
+  border-radius: 40%;
   object-fit: cover;
+  
   
 }
 
@@ -34,14 +38,14 @@ header {
 }
 
 .menu li a {
-  color: #ffffff;
+  color: #724c38;
   text-decoration: none;
   margin: 0 60px;
 }
 
 footer {
-  background-color: #e76c8b;
-  color: #fff;
+  background-color: #ddc0b4;
+  color: #724c38;
   text-align: center;
   padding: 10px 0;
   position: fixed;
