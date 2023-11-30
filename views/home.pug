@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  h1 Welcome to JRMSweets
+  h1 Welcome to JMRSweets
 
   div(id=formshape)
     form(action="/upload", method="POST", enctype="multipart/form-data", id="uploadForm")
@@ -27,11 +27,8 @@ block content
 
       button(type="submit") Generate recipes
       div(id="uploadMessage")
-    br
-    br
-    br
 
-  p(id="helloResult")
+
   div(id="recipeResults")
     // Display the search results
   button(id="backToFormButton", style="display: none;") Back Home
