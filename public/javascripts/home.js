@@ -147,7 +147,6 @@ $('#uploadForm').on('submit', function (event) {
       $('#uploadForm')[0].reset();
 
       $.get('/run-and-clear-uploads', function (data) {
-       // $('#helloResult').text(data.result);
         $('#uploadMessage').text(data.message);
 
         // Resolve the deferred object to indicate completion
@@ -172,17 +171,3 @@ $('#uploadForm').on('submit', function (event) {
   });
 });
 
-/*
-// Assuming you have a button with id 'generateRecipes' in your 'home.pug'
-$('#generateRecipes').on('click', function () {
-  $.post('/search-recipes', function (data) {
-    // Update the content of the recipeResults div with the received HTML data
-    $('#recipeResults').html(data);
-
-    // Additional logic if needed
-    console.log('Results received:', data);
-  }).fail(function (error) {
-    // Handle errors, such as displaying an error message
-    console.error('Error receiving search results:', error);
-  });
-}); */
