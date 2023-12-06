@@ -8,14 +8,14 @@ var multer = require('multer');
 var fileUpload = require('express-fileupload');
 var sqlite3 = require('sqlite3').verbose();
 
-//create an instance of express (to define routes)
+//creates an instance of express (to define routes)
 var app = express();
 
-// view engine setup : we use pug
+// views engine setup : we use pug
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// Configure the SQLite database connection
+// Configures the SQLite database connection
 const dbPath = path.join(__dirname, './data/recipes.db'); // Update the path accordingly
 const db = new sqlite3.Database(dbPath);
 
@@ -32,7 +32,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/jquery', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 
-//Routes setup for our pages
+//Route setup for our pages
 app.use('/', homeRouter);
 app.use('/about', aboutRouter);
 app.use('/contact', contactRouter);
@@ -54,7 +54,7 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+  // renders the error page
   res.status(err.status || 500);
   res.render('error');
 });

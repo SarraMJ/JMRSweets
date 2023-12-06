@@ -14,7 +14,7 @@ router.get('/', function (req, res) {
   });
 
 
-/* handle post */
+// handle post 
 router.post('/', function(req, res) {
   res.render('home');
 }); 

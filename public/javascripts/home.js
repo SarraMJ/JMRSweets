@@ -1,7 +1,7 @@
 function writeIngredients(ingredient) {
   console.log('Sending ingredient to server:', ingredient);
 
-  // Send the ingredient to the server
+  // Sends the ingredient to the server
   $.ajax({
     url: '/submit-ingredients',
     type: 'POST',
@@ -20,25 +20,24 @@ function writeIngredients(ingredient) {
 }
 
 function getSelectedIngredients() {
-  // Get all checkboxes with name "ingredients"
+  // Gets all checkboxes with name "ingredients"
   var checkboxes = $('input[name="ingredients"]:checked');
 
-  // Log the number of checkboxes and their values
+  // Logs the number of checkboxes and their values
   console.log('Number of checkboxes:', checkboxes.length);
 
-  // Extract values of selected checkboxes and store them in an array
+  // Extracts the values of selected checkboxes and store them in an array
   var selectedIngredients = checkboxes.map(function () {
     return this.value;
   }).get();
 
-  // Log or use the updated ingredientsArray as needed
   console.log('Selected ingredients:', selectedIngredients);
 
-  // Write each selected ingredient to the server
+  // Writes each selected ingredient to the server
   selectedIngredients.forEach(writeIngredients);
 }
 
-// manage the Back Home button
+// manages the display of Back Home button
 function buttonVisibility(show) {
   if (show) {
     $('#backToFormButton').show();
@@ -49,21 +48,22 @@ function buttonVisibility(show) {
 
 function generateRecipes() {
   $.post('/search-recipes', function (data) {
-    // Update the content of the recipeResults div with the received HTML data
+    // Updates the content of the recipeResults div with the received  data
+    
     if (data.recipes && data.recipes.length > 0) {
-      // Clear existing content before updating
+      // Clears existing content before updating
       $('#recipeResults').empty();
       
       data.recipes.forEach(recipe => {
-        // Append recipe details to the container
+        // Appends recipe details to the container
         const ingredientsArray = recipe.AllRecipe.split(' ; ').filter(Boolean);
 
-        // Create a formatted list of ingredients
+        // Creates a formatted list of ingredients
         const formattedIngredients = ingredientsArray.map(ingredient => `<li>${ingredient}</li>`).join('');
 
         const directionsArray = recipe.Directions.split('. ').filter(Boolean);
 
-        // Create a formatted list of ingredients
+        // Creates a formatted list of ingredients
         const formatteddirections = directionsArray.map(direction => `<li>${direction}</li>`).join('');
 
         $('#recipeResults').append(`
@@ -102,7 +102,7 @@ function generateRecipes() {
   });
 }
 
-//click on bach Home => returns to home without the recipes. 
+//click on back Home => returns to home page with form  
 $('#backToFormButton').on('click', function () {
   window.location.href = '/'; 
 });
@@ -127,13 +127,13 @@ function clearIngredientsFile() {
 $('input[name="images"]').on('change', function () {
   $('#uploadMessage').text('');
 });
-// Handle form submission
+// Handles form submission
 $('#uploadForm').on('submit', function (event) {
   event.preventDefault();
 
   var formData = new FormData($(this)[0]);
   
-  // Create a deferred object
+  // Creates a deferred object
   var deferred = $.Deferred();
 
   $.ajax({
@@ -164,9 +164,9 @@ $('#uploadForm').on('submit', function (event) {
   getSelectedIngredients();
       $('#uploadForm').hide();
 
-  // Use the deferred object to wait for completion
+  //deferred object used to wait for completion
   deferred.done(function () {
-    // Now that the GET request and getSelectedIngredients are complete, call generateRecipes
+    // Now that everything is completed, calls generateRecipes
     generateRecipes();
   });
 });

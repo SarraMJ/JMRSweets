@@ -1,39 +1,39 @@
 extends layout
 
 block content
-  .title
-  h3 Capture, Click, Create
-  h3| Your One-Click Gateway to Delicious Dessert Recipes!
+  div.format
+    h3 Capture, Click, Create
+    h3| Your One-Click Gateway to Delicious Dessert Recipes!
 
-  div(id=formshape)
-    form(action="/upload", method="POST", enctype="multipart/form-data", id="uploadForm")
-      h4 Choose your images below: 
-      input(type="file", name="images", accept="image/*" multiple)
-      br 
-      br
-      h4 Choose other ingredients : 
-      input(type="checkbox" id="ingredient1" name="ingredients" value="baking powder") 
-      label(for="ingredient1") Baking Powder
-      br
-      input(type="checkbox" id="ingredient2" name="ingredients" value="baking soda") 
-      label(for="ingredient2") Baking Soda
-      br
-      input(type="checkbox" id="ingredient3" name="ingredients" value="vanilla") 
-      label(for="ingredient3") Vanilla
-      br
-      input(type="checkbox" id="ingredient4" name="ingredients" value="sugar") 
-      label(for="ingredient4") Sugar
+    div(id=formshape)
+      form(action="/upload", method="POST", enctype="multipart/form-data", id="uploadForm")
+        h4 Choose your images below: 
+        input(type="file", name="images", accept="image/*" multiple)
+        br 
+        br
+        h4 Choose other ingredients : 
+        input(type="checkbox" id="ingredient1" name="ingredients" value="baking powder") 
+        label(for="ingredient1") Baking Powder
+        br
+        input(type="checkbox" id="ingredient2" name="ingredients" value="baking soda") 
+        label(for="ingredient2") Baking Soda
+        br
+        input(type="checkbox" id="ingredient3" name="ingredients" value="vanilla") 
+        label(for="ingredient3") Vanilla
+        br
+        input(type="checkbox" id="ingredient4" name="ingredients" value="sugar") 
+        label(for="ingredient4") Sugar
 
-      br
-      br
+        br
+        br
 
-      button(type="submit") Generate recipes
-      div(id="uploadMessage")
+        button(type="submit") Generate recipes
+        div(id="uploadMessage")
 
 
-  div(id="recipeResults")
-    // Display the search results
-  button(id="backToFormButton", style="display: none;") Back Home
+    div(id="recipeResults")
+      // Display the search results
+    button(id="backToFormButton", style="display: none;") Back Home
 
   script(src="/jquery/jquery.min.js")
   script(src="/javascripts/home.js")
