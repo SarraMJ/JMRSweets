@@ -1,6 +1,3 @@
-
-
-
 from PIL import Image
 from model import IngredientsClassifier
 import torchvision.transforms as transforms
@@ -9,21 +6,6 @@ import os
 import glob
 import json
 
-
-
-"""
-# Initializes the variable image_file
-image_file = None
-
-# Looks or the last image in "uploads" directory 
-image_files = glob.glob(os.path.join(upload_dir, '*.jpeg')) or glob.glob(os.path.join(upload_dir, '*.jpg')) or glob.glob(os.path.join(upload_dir, '*.png'))
-if image_files:
-    # Sorts the files by modification date (the most recent first)
-    image_files.sort(key=os.path.getmtime, reverse=True)
-
-    # Takes the first image (the most recent)
-    image_file = image_files[0]
-"""
 def predict_image(image_file) : 
 
     if image_file:
@@ -68,7 +50,6 @@ def predict_image(image_file) :
             return "banana"   
         elif predicted.item()== 2:
             return "carrot"
-    
         elif predicted.item() == 3:
             return "chocolate"
         elif predicted.item()==4:
@@ -85,7 +66,6 @@ def predict_image(image_file) :
             return "milk"
         elif predicted.item() == 10:
             return "orange"
-        
         elif predicted.item() == 11:
             return "pear"
         elif predicted.item() == 12:
@@ -93,12 +73,6 @@ def predict_image(image_file) :
         elif predicted.item() == 13:
             return "strawberries"            
     
-
-
-        #Delete the used image
-
-        #os.remove(image_file)
-        #print(f"L'image {image_file} a été supprimée.")
     else:
         print("Aucune image trouvée dans le répertoire 'uploads'.")
 
@@ -112,7 +86,6 @@ upload_dir = os.path.join(script_dir, '../uploads')
 
 image_file = None
 
- 
 image_files = glob.glob(os.path.join(upload_dir, '*.jpeg')) or glob.glob(os.path.join(upload_dir, '*.jpg')) or glob.glob(os.path.join(upload_dir, '*.png'))
 
 ingredientsArray = [predict_image(image_file) for image_file in image_files]
