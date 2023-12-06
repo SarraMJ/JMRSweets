@@ -8,6 +8,12 @@ Our website enables you to upload pictures of ingredients already at your dispos
 
 # Project architecture
 
+
+
+## data/
+- contains the recipe database, the files that modify it, and the query to generate recipes.
+
+
 ## public/
 - Contains publicly accessible static files such as images or stylesheets.
 
