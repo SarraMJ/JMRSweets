@@ -12,6 +12,7 @@ function writeIngredients(ingredient) {
     },
     error: function (error) {
       console.error('Error sending ingredient to server:', error);
+      
     },
     complete: function () {
       console.log('AJAX request complete for ingredient:', ingredient);
@@ -87,9 +88,9 @@ function generateRecipes() {
       clearIngredientsFile();
     } else {
       // Handle case when no recipes are found
-      $('#recipeResults').html('<p>No matching recipes found.</p>');
+      $('#recipeResults').append('<p>No matching recipes found.</p>');
       // Hide the back to form button
-      buttonVisibility(false);
+      buttonVisibility(true);
     }
 
     // Additional logic if needed
@@ -97,8 +98,11 @@ function generateRecipes() {
   }).fail(function (error) {
     // Handle errors, such as displaying an error message
     console.error('Error receiving search results:', error);
+    $('#recipeResults').append('<p>No matching recipes found.</p>');
+      // Hide the back to form button
+      buttonVisibility(true);
     // Hide the back to form button in case of an error
-    buttonVisibility(false);
+    //buttonVisibility(false);
   });
 }
 
